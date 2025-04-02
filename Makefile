@@ -1,6 +1,6 @@
 CXX = c++
-CXXFLAGS = -Wall -Wextra -Werror
-CXXFILES = portScanner.cpp main.cpp
+CXXFLAGS = -Wall -Wextra -Werror -g
+CXXFILES = portScanner.cpp main.cpp utils.cpp
 CXXOBJ = $(CXXFILES:.cpp=.o)
 PROGRAM = portScanner
 
@@ -13,10 +13,10 @@ ${PROGRAM}: ${CXXOBJ}
 	${CXX} ${CXXFLAGS} -c $< -o $@
 
 clean:
-	rm ${CXXOBJ}
+	rm  -f ${CXXOBJ}
 
 fclean: clean
-	rm ${PROGRAM}
+	rm -f ${PROGRAM}
 
 re: fclean all
 
