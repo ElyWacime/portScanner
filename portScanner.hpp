@@ -27,10 +27,11 @@ public:
   void scanListOfPorts(const std::string &ip, std::vector<int> ports);
   void scanRangeOfPorts(const std::string &ip, int start, int end);
   // utils functions
+  std::string checkIfServerSendToMeFirst(std::string ip, int port);
   std::string grabBanner(const std::string &ip, int port);
-  bool checkForHTTP(int sock, std::string ip);
-  bool checkForSSH(int sock);
-  bool checkForFTP(int sock);
+  bool checkForHTTP(std::string ip, int port);
+  bool checkForSSH(std::string ip, int port);
+  bool checkForFTP(std::string ip, int port);
 };
 
 std::ostream &operator<<(std::ostream &out, const PortScanner &instance);
