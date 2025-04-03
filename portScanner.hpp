@@ -26,9 +26,7 @@ private:
 
 public:
   // constractions
-  // PortScanner(std::string filePath = "output.txt");
-  // PortScanner(std::string ip, int port, std::string filePath = "output.txt");
-  PortScanner(std::string ip, int start, int end,
+  PortScanner(std::string ip, int start = 0, int end = 65535,
               std::string filePath = "output.txt");
   ~PortScanner();
   // scanning functions

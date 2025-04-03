@@ -16,25 +16,6 @@
 #include <unistd.h> // For close()
 
 // constructor
-// PortScanner::PortScanner(std::string filePath) {
-//   std::cout << "constructor called;" << std::endl;
-//   this->errorOutFile.open(filePath.c_str(), std::ios::out);
-//   if (!this->errorOutFile.is_open())
-//     std::cerr << "can't open error file for output: " << filePath <<
-//     std::endl;
-//   this->ip = "127.0.0.1";
-//   for (int i = 0; i <= 65535; i++) {
-//     this->ports.push_back(i);
-//   }
-// }
-//
-// PortScanner::PortScanner(std::string ip, int port, std::string filePath) {
-//   std::cout << "Single port constructor called;" << std::endl;
-//   this->errorOutFile.open(filePath.c_str(), std::ios::out);
-//   this->ip = ip;
-//   this->ports.push_back(port);
-// }
-
 PortScanner::PortScanner(std::string ip, int start, int end,
                          std::string filePath) {
   std::cout << "Multipple ports constructor called;" << std::endl;

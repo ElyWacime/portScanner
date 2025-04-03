@@ -3,7 +3,7 @@
 
 int main(void) {
 
-  PortScanner instance("djenty.local", 1, 65535);
+  PortScanner instance("djenty.local", 999, 999);
   // std::string ip = "127.0.0.1";
   // printf("%s\n", instance.grabBanner(ip, 22).c_str());
   // printf(">>>> : %s\n",
