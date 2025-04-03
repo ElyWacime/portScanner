@@ -10,7 +10,7 @@ bool PortScanner::checkForHTTP(std::string ip, int port) {
   // create a socket
   int sock = socket(AF_INET, SOCK_STREAM, 0);
   if (sock < 0) {
-    std::cerr << "check for http: Error creating socket;";
+    this->errorOutFile << "check for http: Error creating socket;";
     return false;
   }
 
@@ -23,7 +23,7 @@ bool PortScanner::checkForHTTP(std::string ip, int port) {
   // attempt a connection to the target
   if (connect(sock, (struct sockaddr *)&target, sizeof(target)) < 0) {
     close(sock);
-    std::cerr << "check for http: Connection failed;";
+    this->errorOutFile << "check for http: Connection failed;";
     return false;
   }
   // Set a timeout for recv()
@@ -43,9 +43,9 @@ bool PortScanner::checkForHTTP(std::string ip, int port) {
   if (bytesReceived != 0 && strncmp(buffer, "HTTP/", 5) == 0)
     return true;
   else if (bytesReceived == 0)
-    std::cerr << "http check: Connection closed by server.\n";
+    this->errorOutFile << "http check: Connection closed by server.\n";
   else {
-    std::cerr << "http check: Recv timed out or failed.\n";
+    this->errorOutFile << "http check: Recv timed out or failed.\n";
   }
   return false;
 }
@@ -85,9 +85,11 @@ std::string PortScanner::checkIfServerSendToMeFirst(std::string ip, int port) {
     close(sock);
     return "ssh";
   } else if (bytesReceived == 0) {
-    std::cerr << "waiting from server check: Connection closed by server.\n";
+    this->errorOutFile
+        << "waiting from server check: Connection closed by server.\n";
   } else {
-    std::cerr << "waiting from server check: Recv timed out or failed.\n";
+    this->errorOutFile
+        << "waiting from server check: Recv timed out or failed.\n";
   }
   close(sock);
   return "nothing detected from waiting;";
@@ -97,7 +99,7 @@ bool PortScanner::checkForFTP(std::string ip, int port) {
   // create a socket
   int sock = socket(AF_INET, SOCK_STREAM, 0);
   if (sock < 0) {
-    std::cerr << "check fot ftp: Error creating socket;";
+    this->errorOutFile << "check fot ftp: Error creating socket;";
     return false;
   }
 
@@ -110,7 +112,7 @@ bool PortScanner::checkForFTP(std::string ip, int port) {
   // attempt a connection to the target
   if (connect(sock, (struct sockaddr *)&target, sizeof(target)) < 0) {
     close(sock);
-    std::cerr << "check for ftp: Connection failed;";
+    this->errorOutFile << "check for ftp: Connection failed;";
     return false;
   }
 
@@ -129,9 +131,9 @@ bool PortScanner::checkForFTP(std::string ip, int port) {
     return true; // FTP detected
   } else if (bytesReceived == 0) {
     close(sock);
-    std::cerr << "ftp check: Connection closed by server.\n";
+    this->errorOutFile << "ftp check: Connection closed by server.\n";
   } else {
-    std::cerr << "ftp check: Recv timed out or failed.\n";
+    this->errorOutFile << "ftp check: Recv timed out or failed.\n";
   }
   close(sock);
   return false;
@@ -141,7 +143,7 @@ bool PortScanner::checkForSSH(std::string ip, int port) {
   // create a socket
   int sock = socket(AF_INET, SOCK_STREAM, 0);
   if (sock < 0) {
-    std::cerr << "check for ssh: Error creating socket;";
+    this->errorOutFile << "check for ssh: Error creating socket;";
     return false;
   }
 
@@ -154,7 +156,7 @@ bool PortScanner::checkForSSH(std::string ip, int port) {
   // attempt a connection to the target
   if (connect(sock, (struct sockaddr *)&target, sizeof(target)) < 0) {
     close(sock);
-    std::cerr << "check for ssh: Connection failed;";
+    this->errorOutFile << "check for ssh: Connection failed;";
     return false;
   }
 
@@ -175,9 +177,9 @@ bool PortScanner::checkForSSH(std::string ip, int port) {
     close(sock);
     return true; // SSH detected
   } else if (bytesReceived == 0) {
-    std::cerr << "ssh check: Connection closed by server.\n";
+    this->errorOutFile << "ssh check: Connection closed by server.\n";
   } else {
-    std::cerr << "ssh check: Recv timed out or failed.\n";
+    this->errorOutFile << "ssh check: Recv timed out or failed.\n";
   }
   close(sock);
   return false;
