@@ -17,7 +17,7 @@
 
 class PortScanner {
 private:
-  std::fstream errorOutFile;
+  mutable std::fstream errorOutFile;
   std::map<int, std::string> scanResults;
   std::string ip;
   std::vector<int> ports;
@@ -26,8 +26,8 @@ private:
 
 public:
   // constractions
-  PortScanner(std::string filePath = "output.txt");
-  PortScanner(std::string ip, int port, std::string filePath = "output.txt");
+  // PortScanner(std::string filePath = "output.txt");
+  // PortScanner(std::string ip, int port, std::string filePath = "output.txt");
   PortScanner(std::string ip, int start, int end,
               std::string filePath = "output.txt");
   ~PortScanner();

@@ -16,7 +16,7 @@ clean:
 	rm  -f ${CXXOBJ}
 
 fclean: clean
-	rm -f ${PROGRAM}
+	rm -f ${PROGRAM} output.txt
 
 re: fclean all
 
