@@ -1,5 +1,5 @@
 CXX = c++
-CXXFLAGS = -Wall -Wextra -Werror -g
+CXXFLAGS = -Wall -Wextra -Werror 
 CXXFILES = portScanner.cpp main.cpp utils.cpp
 CXXOBJ = $(CXXFILES:.cpp=.o)
 PROGRAM = portScanner

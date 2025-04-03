@@ -62,6 +62,9 @@ void PortScanner::routine(int port) {
 void PortScanner::scanAvailablePorts() {
   const int portRange = 10000;
   size_t totalPorts = this->ports.size();
+
+  std::cout << "Scanning ports from: " << this->ports[0]
+            << "\tto: " << this->ports.back() << "..." << std::endl;
   for (size_t i = 0; i < totalPorts; i += portRange) {
     int start = i;
     int end = std::min(i + portRange, totalPorts);
@@ -94,4 +97,16 @@ void PortScanner::displayScanResult() const {
                          << std::endl;
     }
   }
+}
+
+std::ostream &operator<<(std::ostream &out, const PortScanner &instance) {
+  std::map<int, std::string> scanResults = instance.getScanResult();
+  for (std::map<int, std::string>::const_iterator it = scanResults.begin();
+       it != scanResults.end(); ++it) {
+    size_t found = it->second.find("open");
+    if (found != std::string::npos) {
+      out << "port: " << it->first << "\tstatus: " << it->second << std::endl;
+    }
+  }
+  return out;
 }
