@@ -18,8 +18,11 @@ bool PortScanner::checkForHTTP(std::string ip, int port) {
   sockaddr_in target{};
   target.sin_family = AF_INET;
   target.sin_port = htons(port);
-  inet_pton(AF_INET, ip.c_str(), &target.sin_addr);
-
+  if (inet_pton(AF_INET, ip.c_str(), &target.sin_addr) <= 0) {
+    std::cerr << "Invalid IP address!" << std::endl;
+    close(sock);
+    exit(1);
+  }
   // attempt a connection to the target
   if (connect(sock, (struct sockaddr *)&target, sizeof(target)) < 0) {
     close(sock);
@@ -61,8 +64,11 @@ std::string PortScanner::checkIfServerSendToMeFirst(std::string ip, int port) {
   sockaddr_in target{};
   target.sin_family = AF_INET;
   target.sin_port = htons(port);
-  inet_pton(AF_INET, ip.c_str(), &target.sin_addr);
-
+  if (inet_pton(AF_INET, ip.c_str(), &target.sin_addr) <= 0) {
+    std::cerr << "Invalid IP address!" << std::endl;
+    close(sock);
+    exit(1);
+  }
   // attempt a connection to the target
   if (connect(sock, (struct sockaddr *)&target, sizeof(target)) < 0) {
     close(sock);
@@ -107,7 +113,11 @@ bool PortScanner::checkForFTP(std::string ip, int port) {
   sockaddr_in target{};
   target.sin_family = AF_INET;
   target.sin_port = htons(port);
-  inet_pton(AF_INET, ip.c_str(), &target.sin_addr);
+  if (inet_pton(AF_INET, ip.c_str(), &target.sin_addr) <= 0) {
+    std::cerr << "Invalid IP address!" << std::endl;
+    close(sock);
+    exit(1);
+  }
 
   // attempt a connection to the target
   if (connect(sock, (struct sockaddr *)&target, sizeof(target)) < 0) {
@@ -151,7 +161,11 @@ bool PortScanner::checkForSSH(std::string ip, int port) {
   sockaddr_in target{};
   target.sin_family = AF_INET;
   target.sin_port = htons(port);
-  inet_pton(AF_INET, ip.c_str(), &target.sin_addr);
+  if (inet_pton(AF_INET, ip.c_str(), &target.sin_addr) <= 0) {
+    std::cerr << "invalid IP address!";
+    close(sock);
+    exit(1);
+  }
 
   // attempt a connection to the target
   if (connect(sock, (struct sockaddr *)&target, sizeof(target)) < 0) {
