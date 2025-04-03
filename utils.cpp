@@ -10,7 +10,8 @@ bool PortScanner::checkForHTTP(std::string ip, int port) {
   // create a socket
   int sock = socket(AF_INET, SOCK_STREAM, 0);
   if (sock < 0) {
-    return "Error creating socket;";
+    std::cerr << "check for http: Error creating socket;";
+    return false;
   }
 
   // set up the target sockaddr_in structure
@@ -22,7 +23,8 @@ bool PortScanner::checkForHTTP(std::string ip, int port) {
   // attempt a connection to the target
   if (connect(sock, (struct sockaddr *)&target, sizeof(target)) < 0) {
     close(sock);
-    return "Connection failed;";
+    std::cerr << "check for http: Connection failed;";
+    return false;
   }
   // Set a timeout for recv()
   struct timeval timeout;
@@ -95,7 +97,8 @@ bool PortScanner::checkForFTP(std::string ip, int port) {
   // create a socket
   int sock = socket(AF_INET, SOCK_STREAM, 0);
   if (sock < 0) {
-    return "Error creating socket;";
+    std::cerr << "check fot ftp: Error creating socket;";
+    return false;
   }
 
   // set up the target sockaddr_in structure
@@ -107,7 +110,8 @@ bool PortScanner::checkForFTP(std::string ip, int port) {
   // attempt a connection to the target
   if (connect(sock, (struct sockaddr *)&target, sizeof(target)) < 0) {
     close(sock);
-    return "Connection failed;";
+    std::cerr << "check for ftp: Connection failed;";
+    return false;
   }
 
   // Set a timeout for recv()
@@ -137,7 +141,8 @@ bool PortScanner::checkForSSH(std::string ip, int port) {
   // create a socket
   int sock = socket(AF_INET, SOCK_STREAM, 0);
   if (sock < 0) {
-    return "Error creating socket;";
+    std::cerr << "check for ssh: Error creating socket;";
+    return false;
   }
 
   // set up the target sockaddr_in structure
@@ -149,7 +154,8 @@ bool PortScanner::checkForSSH(std::string ip, int port) {
   // attempt a connection to the target
   if (connect(sock, (struct sockaddr *)&target, sizeof(target)) < 0) {
     close(sock);
-    return "Connection failed;";
+    std::cerr << "check for ssh: Connection failed;";
+    return false;
   }
 
   // Set a timeout for recv()

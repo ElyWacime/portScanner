@@ -26,10 +26,7 @@ public:
   PortScanner(std::string ip, int start, int end);
   ~PortScanner();
   // scanning functions
-  void scanAllPorts(const std::string &ip);
-  void scanSinglePort();
-  void scanListOfPorts(const std::string &ip, std::vector<int> ports);
-  void scanRangeOfPorts(const std::string &ip, int start, int end);
+  void scanAvailablePorts();
   void displayScanResult() const;
 
   // utils functions

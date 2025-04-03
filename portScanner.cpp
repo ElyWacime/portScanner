@@ -28,7 +28,7 @@ PortScanner::PortScanner(std::string ip, int port) {
 PortScanner::PortScanner(std::string ip, int start, int end) {
   std::cout << "Multipple ports constructor called;" << std::endl;
   this->ip = ip;
-  for (int i = start; i < end; i++) {
+  for (int i = start; i <= end; i++) {
     this->ports.push_back(i);
   }
 }
@@ -52,13 +52,13 @@ std::string PortScanner::grabBanner(const std::string &ip, int port) {
 }
 
 // scanning functions
-void PortScanner::scanSinglePort() {
+void PortScanner::scanAvailablePorts() {
   for (std::vector<int>::iterator it = ports.begin(); it != ports.end(); it++) {
-    std::string state = grabBanner(this->ip, this->ports[*it]);
-    if (state != "No service detecled;") {
-      this->scanResults[this->ports[*it]] = "open\t" + state;
+    std::string state = grabBanner(this->ip, *it);
+    if (state != "No service detecled;" && state != "Connection failed;") {
+      this->scanResults[*it] = "open\t" + state;
     } else {
-      this->scanResults[this->ports[*it]] = "closed";
+      this->scanResults[*it] = "closed";
     }
   }
   return;
@@ -67,10 +67,13 @@ void PortScanner::scanSinglePort() {
 void PortScanner::displayScanResult() const {
   std::cout << "###################################" << std::endl;
   std::cout << "########## SCAN RESULTS ###########" << std::endl;
-  std::cout << "###################################" << std::endl;
+  std::cout << "###################################\n" << std::endl;
   std::cout << "IP: " + this->ip << std::endl;
-  for (std::vector<int>::const_iterator it = ports.begin(); it != ports.end();
-       ++it) {
-    std::cout << scanResults.at(*it) << std::endl;
+
+  for (std::map<int, std::string>::const_iterator it = scanResults.begin();
+       it != scanResults.end(); ++it) {
+
+    std::cout << "port: " << it->first << "\tstatus: " << it->second
+              << std::endl;
   }
 }
